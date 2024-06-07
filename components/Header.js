@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { CONTAINER } from "../utils/styles";
 
 const Header = () => {
     return (
         <View style={{
             width: "100%",
-            height: 60,
+            height: CONTAINER.headerHeight,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

@@ -5,4 +5,6 @@ export const CONTAINER = {
     alignItems: 'center',
     borderBottomColor: '#eef1f6',
     borderBottomWidth: 2,
+    headerHeight: '10%',
+    bodyHeight: '90%',
 }
