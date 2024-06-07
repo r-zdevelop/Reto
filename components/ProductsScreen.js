@@ -8,6 +8,7 @@ const ProductsScreen = (props) => {
         <View style={{
             width: "100%",
             display: 'flex',
+            padding: 20,
             justifyContent: 'center',
             alignItems: 'center',
             borderBottomColor: '#eef1f6',

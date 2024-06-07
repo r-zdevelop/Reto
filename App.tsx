@@ -5,45 +5,51 @@
  * @format
  */
 
-import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { createContext } from 'react';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Header from './components/Header';
 import ProductsScreen from './components/ProductsScreen';
 import ProductDetailScreen from './components/ProductDetailScreen';
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: 'white',
+  },
+};
+
+export const AppContext = createContext({});
+
 const Stack = createNativeStackNavigator();
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
-
 function App(): React.JSX.Element {
-
-  useEffect(() => {
-    console.log('App started! 22s');
-
-  }, []);
+  const [product, setProduct] = React.useState(null);
 
   return (
-    <NavigationContainer>
-      <Header />
-      <Stack.Navigator
-        initialRouteName='Products'
-        screenOptions={{
-          headerTitle: '',
-        }}
-      >
-        <Stack.Screen name="Products" >
-          {(props) => <ProductsScreen {...props} />}
-        </Stack.Screen>
-        <Stack.Screen name="ProductDetails" component={ProductDetailScreen} />
-      </Stack.Navigator>
+    <NavigationContainer
+      theme={MyTheme}
+    >
+      <AppContext.Provider value={{
+        product,
+        setProduct
+      }}>
+        <Header />
+        <Stack.Navigator
+          initialRouteName='Products'
+          screenOptions={{
+            headerTitle: '',
+          }}
+        >
+          <Stack.Screen name="Products" >
+            {(props) => <ProductsScreen {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="ProductDetails" >
+            {(props) => <ProductDetailScreen {...props} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      </AppContext.Provider>
     </NavigationContainer >
   );
 }

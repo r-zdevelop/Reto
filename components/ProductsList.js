@@ -1,41 +1,39 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, Button } from 'react-native'
+import { API_URL, AUTHOR_ID } from '../utils/constants'
+import { AppContext } from '../App'
 
-const MockProducts = [
-    {
-        id: 1,
-        name: "Product 1",
-        price: 100,
-    },
-    {
-        id: 2,
-        name: "Product 2",
-        price: 200,
-    },
-    {
-        id: 3,
-        name: "Product 3",
-        price: 300,
-    },
-    {
-        id: 4,
-        name: "Product 4",
-        price: 400,
-    },
-    {
-        id: 5,
-        name: "Product 5",
-        price: 500,
-    },
-]
 
 const ProductsList = ({ navigation }) => {
-    const navigateToProductDetail = (productId) => {
+    const [products, setProducts] = useState([])
+    const { setProduct } = useContext(AppContext)
+    const navigateToProductDetail = (product) => {
         // Navigate to ProductDetailScreen passing the productId
         if (navigation) {
+            setProduct(product)
+            const productId = product.id
             navigation.navigate('ProductDetails', { productId })
         }
     }
+
+    useEffect(() => {
+        setProducts([])
+        fetch(API_URL, {
+            method: 'GET',
+            headers: {
+                'authorId': AUTHOR_ID,
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setProducts(data)
+            })
+            .catch(error => {
+                console.error('Error:', error)
+
+            })
+    }, [])
+
     return (
         <View
             style={{
@@ -48,7 +46,7 @@ const ProductsList = ({ navigation }) => {
 
             }}
         >
-            {MockProducts.map(product => (
+            {products.map(product => (
                 <View key={product.id} style={{
                     display: 'flex',
                     flexDirection: 'row',
@@ -79,7 +77,7 @@ const ProductsList = ({ navigation }) => {
                     <View>
                         <Button
                             title=">"
-                            onPress={() => { navigateToProductDetail(product.id) }}
+                            onPress={() => { navigateToProductDetail(product) }}
                         />
                     </View>
                 </View>

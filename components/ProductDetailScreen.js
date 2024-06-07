@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, Button } from 'react-native'
+import { AppContext } from '../App'
 
 const MockProducts = [
     {
@@ -9,7 +10,9 @@ const MockProducts = [
     },
 ]
 
-const ProductDetailScreen = () => {
+const ProductDetailScreen = (props) => {
+    const { product } = useContext(AppContext)
+
     return (
         <View
             style={{
@@ -22,10 +25,10 @@ const ProductDetailScreen = () => {
 
             }}
         >
-            {MockProducts.map(product => (
+            {product && (
                 <View key={product.id} style={{
                     display: 'flex',
-                    flexDirection: 'row',
+                    flexDirection: 'column',
                     width: "100%",
                     justifyContent: 'space-between',
                     alignItems: 'center',
@@ -33,30 +36,13 @@ const ProductDetailScreen = () => {
                     borderWidth: 1,
                     padding: 10,
                 }}>
-                    <View
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            height: 52,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                color: '#2c2c30',
-                                fontWeight: 'bold',
-                                fontSize: 16,
-                            }}
-                        >{product.name}</Text>
-                        <Text>{product.id}</Text>
-                    </View>
-                    <View>
-                        <Button
-                            title=">"
-                        />
-                    </View>
+                    <Text style={{
+                        fontSize: 20,
+                        fontWeight: 'bold',
+                    }}>{product.name}</Text>
+
                 </View>
-            ))}
+            )}
         </View>
     )
 }
