@@ -9,8 +9,8 @@ import React, { createContext } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Header from './components/Header';
-import ProductsScreen from './components/ProductsScreen';
-import ProductDetailScreen from './components/ProductDetailScreen';
+import ProductsScreen from './screens/ProductsScreen';
+import ProductDetailScreen from './screens/ProductDetailScreen';
 
 const MyTheme = {
   ...DefaultTheme,

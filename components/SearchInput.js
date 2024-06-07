@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInput, View } from "react-native";
 
-const SearchInput = () => {
+const SearchInput = ({ search, setSearch }) => {
     return (
         <View style={{
             width: "100%",
@@ -20,6 +20,8 @@ const SearchInput = () => {
                     paddingLeft: 10,
                 }}
                 placeholder="Search..."
+                value={search}
+                onChangeText={setSearch}
             />
         </View>
     );

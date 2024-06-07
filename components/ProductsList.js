@@ -4,8 +4,8 @@ import { API_URL, AUTHOR_ID } from '../utils/constants'
 import { AppContext } from '../App'
 
 
-const ProductsList = ({ navigation }) => {
-    const [products, setProducts] = useState([])
+const ProductsList = ({ navigation, products, filter }) => {
+    const [filteredProducts, setFilteredProducts] = useState([])
     const { setProduct } = useContext(AppContext)
     const navigateToProductDetail = (product) => {
         // Navigate to ProductDetailScreen passing the productId
@@ -17,22 +17,8 @@ const ProductsList = ({ navigation }) => {
     }
 
     useEffect(() => {
-        setProducts([])
-        fetch(API_URL, {
-            method: 'GET',
-            headers: {
-                'authorId': AUTHOR_ID,
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
-                setProducts(data)
-            })
-            .catch(error => {
-                console.error('Error:', error)
-
-            })
-    }, [])
+        setFilteredProducts(products.filter(product => product.name.toLowerCase().includes(filter.toLowerCase())))
+    }, [filter, products])
 
     return (
         <View
@@ -46,7 +32,7 @@ const ProductsList = ({ navigation }) => {
 
             }}
         >
-            {products.map(product => (
+            {filteredProducts.map(product => (
                 <View key={product.id} style={{
                     display: 'flex',
                     flexDirection: 'row',
