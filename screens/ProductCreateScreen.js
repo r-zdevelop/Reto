@@ -13,6 +13,10 @@ const ProductCreateScreen = ({ navigation }) => {
     const onChangeText = (field, text) => {
         setProduct({ ...product, [field]: text })
     }
+
+    const validateProduct = () => {
+        return product.id && product.name && product.description && product.logo && dateRelease && dateRevsion
+    }
     return (
         <View style={{
             width: "100%",
@@ -183,28 +187,30 @@ const ProductCreateScreen = ({ navigation }) => {
             <Button
                 title="Enviar"
                 onPress={() => {
-                    fetch(API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'authorId': AUTHOR_ID,
-                        },
-                        body: JSON.stringify(
-                            {
-                                ...product,
-                                date_release: dateRelease,
-                                date_revision: dateRevsion,
-                            }
-                        )
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('Success:', data);
-                            navigation.navigate('Products')
+                    if (validateProduct()) {
+                        fetch(API_URL, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'authorId': AUTHOR_ID,
+                            },
+                            body: JSON.stringify(
+                                {
+                                    ...product,
+                                    date_release: dateRelease,
+                                    date_revision: dateRevsion,
+                                }
+                            )
                         })
-                        .catch((error) => {
-                            console.error('Error:', error);
-                        });
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log('Success:', data);
+                                navigation.navigate('Products')
+                            })
+                            .catch((error) => {
+                                console.error('Error:', error);
+                            });
+                    }
                 }}
             />
         </View >
