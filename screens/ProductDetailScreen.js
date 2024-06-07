@@ -19,8 +19,7 @@ const ProductDetailScreen = (props) => {
             style={{
                 marginTop: 40,
                 width: "100%",
-                display: 'grid',
-                gridGap: 0,
+                display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
 

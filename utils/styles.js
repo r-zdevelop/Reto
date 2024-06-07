@@ -8,3 +8,12 @@ export const CONTAINER = {
     headerHeight: '10%',
     bodyHeight: '90%',
 }
+
+export const FORM_STYLE = {
+    display: 'flex',
+    width: "100%",
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 20,
+}

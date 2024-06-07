@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Header from './components/Header';
 import ProductsScreen from './screens/ProductsScreen';
 import ProductDetailScreen from './screens/ProductDetailScreen';
+import ProductCreateScreen from './screens/ProductCreateScreen';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -47,6 +48,9 @@ function App(): React.JSX.Element {
           </Stack.Screen>
           <Stack.Screen name="ProductDetails" >
             {(props) => <ProductDetailScreen {...props} />}
+          </Stack.Screen>
+          <Stack.Screen name="ProductCreate" >
+            {(props) => <ProductCreateScreen {...props} />}
           </Stack.Screen>
         </Stack.Navigator>
       </AppContext.Provider>

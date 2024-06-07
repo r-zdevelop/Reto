@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View } from "react-native";
+import { Button, View } from "react-native";
 import SearchInput from "../components/SearchInput";
 import ProductsList from "../components/ProductsList";
 import { CONTAINER } from "../utils/styles";
@@ -38,6 +38,11 @@ const ProductsScreen = (props) => {
             <SearchInput search={search} setSearch={setSearch} />
 
             <ProductsList navigation={props.navigation} filter={search} products={products} />
+
+            <Button
+                title="Agregar"
+                onPress={() => { props.navigation.navigate('ProductCreate') }}
+            />
         </View>
     );
 }
